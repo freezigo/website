@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FreeziGo — Patented thermal-battery cooling for every cold-chain</title>
+<meta name="description" content="FreeziGo is a patented thermal-battery cooling system for last-mile delivery, milk transport, vaccine logistics and cold micro-hubs — reliable cold without diesel, even off-grid."/>
+<link rel="icon" type="image/png" href="freezigo-logo.png"/>
+<link rel="apple-touch-icon" href="freezigo-logo.png"/>
+<link rel="shortcut icon" href="freezigo-logo.png"/>
+<style>
+  /* ========== TOKENS (Option 2: Cream + Navy + Orange) ========== */
+  :root{
+    --cream:#F7F2E8;
+    --cream-2:#EFE8D6;
+    --ink:#1F2A78;        /* logo navy */
+    --ink-2:#141C55;
+    --muted:#5a608a;
+    --surface:#fff;
+    --line:#E3DBC4;
+    --accent:#EB5B2C;     /* logo orange */
+    --accent-2:#C44A1E;
+    --dark:#101529;
+    --radius:18px;
+    --maxpad: clamp(16px, 4vw, 72px);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);
+    font-family: ui-sans-serif, -apple-system, "Inter", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;max-width:100vw}
+  h1,h2,h3{overflow-wrap:break-word;word-wrap:break-word}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font:inherit;cursor:pointer}
+
+  /* Typography scale */
+  h1,h2,h3,h4{font-weight:700;letter-spacing:-.02em;margin:0}
+  h1{font-size:clamp(36px, 6.2vw, 76px);line-height:1.02;letter-spacing:-.03em}
+  h2{font-size:clamp(28px, 4.2vw, 52px);line-height:1.06}
+  h3{font-size:clamp(20px, 2.4vw, 28px);line-height:1.15}
+  h4{font-size:17px}
+  p{margin:0}
+
+  /* ========== Layout primitives (FULL-WIDTH) ========== */
+  .row{width:100%;padding-left:var(--maxpad);padding-right:var(--maxpad)}
+  section{padding-top:clamp(40px, 5vw, 72px);padding-bottom:clamp(40px, 5vw, 72px)}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .muted{color:var(--muted)}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.6);
+    white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  /* Unified spacing between the eyebrow chip and its heading — keeps every section consistent */
+  .eyebrow + h1,
+  .eyebrow + h2{margin-top:18px}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font-weight:600;font-size:15px;
+    border:1.5px solid transparent;transition:transform .2s ease, background .2s ease, color .2s ease}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.primary:hover{background:var(--accent-2);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--cream)}
+  .btn.lite{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.lite:hover{border-color:var(--ink)}
+
+  /* ========== Navigation ========== */
+  .nav{position:sticky;top:0;z-index:40;background:rgba(247,242,232,.85);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-logo{height:42px;width:auto}
+  .nav-links{display:flex;gap:28px;font-size:14.5px;color:var(--ink);font-weight:500}
+  .nav-links a{position:relative;padding:4px 0}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--accent);transition:width .25s ease}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{display:flex;gap:8px;align-items:center}
+  .nav-toggle{display:none;background:transparent;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .nav-toggle span{display:block;width:20px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px}
+  @media (max-width:960px){
+    .nav-links,.nav-cta .btn:not(.primary){display:none}
+    .nav-toggle{display:block}
+    .nav-inner{height:68px}
+  }
+  /* Below 560px the primary button overflows next to the logo + hamburger — hide it and rely on the hamburger menu's "Request a demo" link */
+  @media (max-width:560px){
+    .nav-cta .btn.primary{display:none}
+    .eyebrow{font-size:10.5px;letter-spacing:.18em;padding:6px 12px}
+    .brand-logo{height:36px}
+  }
+  /* mobile sheet */
+  .mobile-menu{display:none;border-top:1px solid var(--line);background:var(--cream);padding:14px var(--maxpad) 22px}
+  .mobile-menu.open{display:block}
+  .mobile-menu a{display:block;padding:12px 0;border-bottom:1px dashed var(--line);font-weight:500}
+
+  /* ========== HERO ========== */
+  .hero{position:relative;padding-top:clamp(36px,5vw,70px);padding-bottom:clamp(60px,8vw,120px);min-height:92vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:
+      radial-gradient(60% 70% at 80% 0%, rgba(235,91,44,.18), transparent 60%),
+      radial-gradient(55% 55% at 10% 90%, rgba(31,42,120,.10), transparent 60%);
+    pointer-events:none;z-index:0}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(24px,4vw,72px);align-items:start}
+  @media (max-width:960px){.hero-grid{grid-template-columns:1fr}}
+  .hero-copy{max-width:60ch;min-width:0}
+  .hero-media{min-width:0}
+  .hero h1{margin-bottom:22px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .sub{color:var(--muted);font-size:clamp(17px,1.5vw,20px);max-width:52ch;margin-bottom:28px}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+
+  /* Hero media — video or truck image. 16:9 container, contain-fit so nothing is cropped. */
+  .hero-media{position:relative;border-radius:24px;overflow:hidden;
+    background:#0d1330;
+    box-shadow:0 40px 80px -40px rgba(20,28,85,.35), inset 0 1px 0 rgba(255,255,255,.04);
+    aspect-ratio:16/9}
+  .hero-media video{width:100%;height:100%;object-fit:cover;display:block;background:#0d1330}
+  .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-media::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 55%, rgba(10,14,40,.35));
+    pointer-events:none}
+  .hero-badge{position:absolute;left:18px;top:18px;z-index:2;color:#fff;background:rgba(10,14,40,.45);
+    backdrop-filter:blur(6px);padding:10px 14px;border-radius:12px;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .hero-badge b{color:#ffb07a;font-weight:700;letter-spacing:.14em}
+
+  /* Hero tickers */
+  .hero-ticker{position:relative;z-index:1;margin-top:clamp(40px,6vw,80px);
+    display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  @media (max-width:780px){.hero-ticker{grid-template-columns:repeat(2,1fr)}}
+  .tick{padding:20px 26px;border-right:1px solid var(--line)}
+  .tick:last-child{border-right:none}
+  @media (max-width:780px){.tick:nth-child(2n){border-right:none}}
+  .tick b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--ink)}
+  .tick span{color:var(--muted);font-size:13px}
+
+  /* ========== PRODUCT SHOWCASE (truck image) ========== */
+  .showcase{background:linear-gradient(180deg, var(--cream), var(--cream-2));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .showcase-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(24px,5vw,80px);align-items:start}
+  @media (max-width:960px){.showcase-grid{grid-template-columns:1fr}}
+  .showcase h2{margin-bottom:14px}
+  .showcase .lead{color:var(--muted);font-size:18px;max-width:54ch;margin-bottom:26px}
+  .showcase-product{position:relative;aspect-ratio:4/3;border-radius:24px;overflow:hidden;background:#0a0a0a;
+    border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .showcase-product img{width:100%;height:100%;object-fit:contain}
+  .callouts{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+  .callouts li{display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:14px}
+  .callouts li .num{flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .callouts li b{display:block;margin-bottom:2px}
+  .callouts li span{color:var(--muted);font-size:14.5px}
+
+  /* ========== APPLICATIONS HUB ========== */
+  .apps-intro{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,4vw,60px);align-items:start;margin-bottom:40px}
+  @media (max-width:900px){.apps-intro{grid-template-columns:1fr}}
+  .apps-intro p{color:var(--muted);font-size:17px;max-width:58ch}
+
+  .apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media (max-width:1100px){.apps-grid{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:820px){.apps-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:480px){.apps-grid{grid-template-columns:1fr}}
+  .app{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .3s ease, box-shadow .3s ease}
+  .app:hover{transform:translateY(-4px);box-shadow:0 40px 80px -60px rgba(20,28,85,.35)}
+  .app .thumb{aspect-ratio:16/9;background:linear-gradient(135deg,var(--cream-2),#e8dfc1);position:relative;overflow:hidden}
+  .app .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .app:hover .thumb img{transform:scale(1.04)}
+  .app .thumb.t1{background:linear-gradient(135deg,#fde7d6,#f7d6b8)}
+  .app .thumb.t2{background:linear-gradient(135deg,#e7eaf7,#c9d2ec)}
+  .app .thumb.t3{background:linear-gradient(135deg,#e6f0e7,#cfe0d1)}
+  .app .thumb.t4{background:linear-gradient(135deg,#f1e6f0,#dbc5d9)}
+  .app .thumb.t5{background:linear-gradient(135deg,#f5ebd3,#e6d5a6)}
+  .app .thumb.t6{background:linear-gradient(135deg,#deeaf2,#bccfdf)}
+  .app .thumb.t7{background:linear-gradient(135deg,#dff0e8,#b8dcc7)}
+  .app .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .app .tag{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .app .body h3{font-size:clamp(16px,1.4vw,18px);line-height:1.2}
+  .app .body p{color:var(--muted);font-size:13px;line-height:1.5}
+  .app .more{margin-top:auto;color:var(--ink);font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:6px;padding-top:6px}
+  .app .more::after{content:"→";transition:transform .2s ease}
+  .app:hover .more::after{transform:translateX(4px)}
+
+  /* ========== HOW IT WORKS ========== */
+  .tech{background:var(--ink);color:#f2ecd8;border-top:1px solid var(--ink-2);border-bottom:1px solid var(--ink-2)}
+  .tech .eyebrow{background:rgba(255,255,255,.06);color:#ffd2b8;border-color:rgba(255,255,255,.14)}
+  .tech h2{color:#fff}
+  .tech .lead{color:#c9d0ee;max-width:60ch;font-size:18px;margin-top:14px;margin-bottom:40px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media (max-width:900px){.steps{grid-template-columns:1fr}}
+  .step{padding:26px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);position:relative}
+  .step b{display:inline-block;padding:4px 10px;border-radius:6px;background:var(--accent);color:#fff;font-size:12px;letter-spacing:.1em;margin-bottom:14px}
+  .step h3{color:#fff;margin-bottom:8px;font-size:20px}
+  .step p{color:#bfc6e8;font-size:15px}
+
+  /* ========== BENEFITS ========== */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media (max-width:1000px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
+  .why{padding:26px;background:#fff;border:1px solid var(--line);border-radius:18px}
+  .why .ic{width:40px;height:40px;border-radius:12px;background:rgba(235,91,44,.12);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+  .why b{display:block;font-size:17px;margin-bottom:4px}
+  .why p{color:var(--muted);font-size:14.5px}
+
+  /* ========== REEFER DETAIL (subpage — only visible when body has .reefer-mode) ========== */
+  .reefer-detail{display:none;scroll-margin-top:90px}
+  body.reefer-mode .reefer-detail{display:block}
+  /* In reefer-mode hide every main-page section so it feels like a subpage */
+  body.reefer-mode .hero,
+  body.reefer-mode #product,
+  body.reefer-mode #applications,
+  body.reefer-mode #technology,
+  body.reefer-mode #contact{display:none}
+
+  /* ========== PATENT BAND ========== */
+  .patent{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .patent-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(24px,4vw,60px);align-items:start}
+  @media (max-width:900px){.patent-grid{grid-template-columns:1fr}}
+  .patent-grid h2{margin-bottom:14px}
+  .patent-grid p{color:var(--muted);font-size:17px;max-width:54ch}
+  .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .badge{padding:10px 16px;border:1px dashed var(--line);background:#fff;border-radius:999px;font-size:13px;color:var(--ink);font-weight:600}
+  .badge b{color:var(--accent)}
+
+  /* ========== CTA ========== */
+  .cta-band{position:relative;border-radius:28px;overflow:hidden;background:
+      radial-gradient(60% 100% at 10% 0%, rgba(235,91,44,.25), transparent 60%),
+      radial-gradient(70% 100% at 100% 100%, rgba(247,242,232,.12), transparent 65%),
+      #14194a;
+    color:#fff;padding:clamp(40px,6vw,72px);text-align:left;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start}
+  @media (max-width:900px){.cta-band{grid-template-columns:1fr;text-align:center}}
+  .cta-band h2{color:#fff;margin-bottom:10px}
+  .cta-band p{color:#cdd3f2;max-width:54ch}
+  .cta-form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:18px;display:grid;gap:10px}
+  .cta-form input,.cta-form select,.cta-form textarea{width:100%;background:transparent;border:1px solid rgba(255,255,255,.2);
+    color:#fff;padding:12px 14px;border-radius:10px;font:inherit;outline:none;font-size:14px}
+  .cta-form input::placeholder,.cta-form textarea::placeholder{color:#9aa3d0}
+  .cta-form input:focus,.cta-form select:focus,.cta-form textarea:focus{border-color:var(--accent)}
+  /* Custom select — transparent on the dark form, but options render in a readable light panel */
+  .cta-form select{appearance:none;-webkit-appearance:none;-moz-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%23ffffff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat:no-repeat;background-position:right 14px center;background-size:12px 8px;padding-right:38px;cursor:pointer}
+  .cta-form select option{background:#fff;color:#0b0b0b;padding:8px}
+  .cta-form button{background:var(--accent);color:#fff;border:none;padding:14px;border-radius:10px;font-weight:600;font-size:15px}
+  .cta-form button:hover{background:var(--accent-2)}
+
+  /* ========== FOOTER ========== */
+  footer{background:var(--cream-2);border-top:1px solid var(--line);padding:48px 0 28px;margin-top:60px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+  @media (max-width:900px){.foot-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:520px){.foot-grid{grid-template-columns:1fr}}
+  .foot-brand .brand-logo{height:42px;margin-bottom:14px}
+  .foot-brand p{color:var(--muted);font-size:14.5px;max-width:34ch}
+  .foot-col h4{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:700}
+  .foot-col a{display:block;color:var(--ink);padding:4px 0;font-size:14.5px}
+  .foot-col a:hover{color:var(--accent)}
+  .foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:28px;margin-top:32px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+
+  /* subtle section-label helper */
+  .section-head{max-width:72ch;margin-bottom:clamp(30px,4vw,56px)}
+  .section-head h2{margin-bottom:10px}
+  .section-head p{color:var(--muted);font-size:17px}
+
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="row nav-inner">
+    <a class="brand" href="#top" aria-label="FreeziGo home">
+      <!-- Your real logo. Make sure freezigo-logo.png sits next to freezigo.html -->
+      <img src="freezigo-logo.png" alt="FreeziGo" class="brand-logo"
+        onerror="this.outerHTML='&lt;svg class=&quot;brand-logo&quot; viewBox=&quot;0 0 360 96&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; role=&quot;img&quot; aria-label=&quot;FreeziGo&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;2&quot; width=&quot;356&quot; height=&quot;92&quot; rx=&quot;18&quot; fill=&quot;#EB5B2C&quot; stroke=&quot;#0b0b0b&quot; stroke-width=&quot;3&quot;/&gt;&lt;text x=&quot;22&quot; y=&quot;66&quot; font-family=&quot;Impact, Arial Black, sans-serif&quot; font-size=&quot;58&quot; font-style=&quot;italic&quot; fill=&quot;#ffffff&quot;&gt;Freezi&lt;/text&gt;&lt;rect x=&quot;232&quot; y=&quot;18&quot; width=&quot;118&quot; height=&quot;60&quot; rx=&quot;12&quot; fill=&quot;#ffffff&quot; stroke=&quot;#0b0b0b&quot; stroke-width=&quot;2.5&quot;/&gt;&lt;text x=&quot;248&quot; y=&quot;64&quot; font-family=&quot;Impact, Arial Black, sans-serif&quot; font-size=&quot;48&quot; font-style=&quot;italic&quot; fill=&quot;#1F2A78&quot;&gt;GO&lt;/text&gt;&lt;/svg&gt;';"/>
+    </a>
+    <div class="nav-links">
+      <a href="#product">Product</a>
+      <a href="#applications">Applications</a>
+      <a href="#technology">Technology</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn primary" href="#contact">Request a demo</a>
+      <button class="nav-toggle" aria-label="Open menu" onclick="document.getElementById('mm').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mm">
+    <a href="#product">Product</a>
+    <a href="#applications">Applications</a>
+    <a href="#technology">Technology</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" style="color:var(--accent);font-weight:700">Request a demo →</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero row" id="top">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span>Patented thermal battery · Made in India</span>
+      <h1>One battery. <em>Every cooling system.</em></h1>
+      <p class="sub">Meet <b>ThermoPod</b> — our patented thermal battery-inverter. It stores cooling directly
+        (not electricity), powering everything from reefer trucks and milk chillers to cold rooms, AC systems
+        and data centres.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#product">See ThermoPod</a>
+        <a class="btn ghost" href="#applications">Explore applications</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <!-- HERO VIDEO: save your video in this folder. The player tries both common filenames. -->
+      <video autoplay muted loop playsinline controls controlslist="nodownload" poster="freezigo-truck.png">
+        <source src="FreeziGo.mp4" type="video/mp4" />
+        <source src="freezigo-hero.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <div class="hero-ticker">
+    <div class="tick"><b>25 years</b><span>low-maintenance lifespan</span></div>
+    <div class="tick"><b>&gt;90%</b><span>round-trip efficiency</span></div>
+    <div class="tick"><b>−25°C</b><span>ambient to deep-freeze</span></div>
+  </div>
+</header>
+
+<!-- ================= PRODUCT SHOWCASE ================= -->
+<section class="showcase" id="product">
+  <div class="row showcase-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Meet ThermoPod</span>
+      <h2>The world's first thermal battery-inverter.</h2>
+      <ul class="callouts">
+        <li><span class="num">1</span><div><b>Stores cold, not the current</b></div></li>
+        <li><span class="num">2</span><div><b>5× cheaper than lithium</b></div></li>
+        <li><span class="num">3</span><div><b>25-year, low-maintenance life</b></div></li>
+        <li><span class="num">4</span><div><b>Built for a net-zero cold chain</b></div></li>
+      </ul>
+    </div>
+    <div class="showcase-product">
+      <!-- THERMOPOD RENDER: save your branded render as "Thermopod.png" inside this folder -->
+      <img src="Thermopod.png" alt="ThermoPod — patented thermal battery-inverter by FreeziGo"/>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPLICATIONS HUB ================= -->
+<section id="applications" class="row">
+  <div class="apps-intro">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>One platform · Many sectors</span>
+      <h2>Eight sectors today.<br/>Every cold-chain tomorrow.</h2>
+    </div>
+  </div>
+
+  <div class="apps-grid">
+    <a class="app" href="#reefer-detail">
+      <div class="thumb t1" data-label="Reefer trucks">
+        <img src="Truck.png" alt="FreeziGo ThermoPod mounted on a reefer truck"/>
+      </div>
+      <div class="body">
+        <h3>Reefer trucks</h3>
+        <p>Replace diesel gensets on refrigerated trucks. Save 4,000 L of diesel and ₹3.6L per vehicle per year. Already running in the field.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+    <a class="app" href="#contact">
+      <div class="thumb t2" data-label="Bulk milk coolers"><img src="app-bmc.png" alt="Bulk milk cooler in a dairy collection centre"/></div>
+      <div class="body">
+        <h3>Bulk milk coolers (BMC)</h3>
+        <p>Dairy-grade cold at village collection centres — grid-agnostic, fuel-free.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+    <a class="app" href="#contact">
+      <div class="thumb t3" data-label="Cold rooms"><img src="app-coldroom.png" alt="Modern cold storage room with produce and pharma boxes"/></div>
+      <div class="body">
+        <h3>Cold rooms</h3>
+        <p>Drop-in cold storage for pharmacies, kitchens, dark stores and rural retail. Scales from 10 m³ to warehouse-sized.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+    <a class="app" href="#contact">
+      <div class="thumb t4" data-label="Data centres"><img src="app-datacenter.jpg" alt="Modern data centre corridor with server racks"/></div>
+      <div class="body">
+        <h3>Data centres</h3>
+        <p>Cut your cooling energy bill. Shift load to off-peak tariffs. Survive the grid's duck-curve without diesel backup.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+    <a class="app" href="#contact">
+      <div class="thumb t5" data-label="Fishing boats"><img src="app-fishing.jpg" alt="Indian fishing trawler unloading catch at golden hour"/></div>
+      <div class="body">
+        <h3>Fishing boats</h3>
+        <p>Deep-freeze autonomy for catch-to-shore cold-chain. Longer voyages, better margins, no onboard diesel reefer.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+    <a class="app" href="#contact">
+      <div class="thumb t6" data-label="Central AC"><img src="app-centralac.jpg" alt="Rooftop HVAC chiller unit on a commercial building at sunset"/></div>
+      <div class="body">
+        <h3>Central AC</h3>
+        <p>Charge cool at 2 AM, release it at 6 PM. Flatten demand peaks for commercial buildings — without any lithium.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+    <a class="app" href="#contact">
+      <div class="thumb t2" data-label="Home AC"><img src="app-homeac.jpg" alt="Indian family relaxing in a living room with a split AC"/></div>
+      <div class="body">
+        <h3>Home AC</h3>
+        <p>Residential cooling that beats Time-of-Day tariffs. Use solar during the day, run cool all evening on stored cold.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+    <a class="app" href="#contact">
+      <div class="thumb t7" data-label="Vaccine &amp; pharma"><img src="app-vaccine.jpg" alt="Gloved hand placing vaccine vials into a portable medical cooler"/></div>
+      <div class="body">
+        <h3>Vaccine &amp; pharma cold chain</h3>
+        <p>Holds precise 2–8°C zones for vaccines and life-saving medicines through storage and last-mile transport — even off-grid.</p>
+        <span class="more">Explore use case</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ================= TECHNOLOGY ================= -->
+<section class="tech" id="technology">
+  <div class="row">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>How it works</span>
+      <h2>Store the cold,<br/>not the current.</h2>
+      <p class="lead">Cooling is 15% of the world's electricity — and lithium batteries are too expensive to store it
+        at scale. ThermoPod takes a different path: it stores cooling directly. Harvest cheap solar or off-peak
+        grid as cold, then release it when demand peaks. No lithium cells, no fire risk, no degradation.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><b>01 · Harvest</b><h3>Charge when energy is cheap</h3>
+        <p>Run ThermoPod on solar at noon or off-peak grid at night. Cooling is stored as a phase-change — no electricity held at all.</p></div>
+      <div class="step"><b>02 · Hold</b><h3>Keep it, cost-free, for hours</h3>
+        <p>No self-discharge like a battery. The cold just stays, ready for the 6 PM peak or a 12-hour reefer route.</p></div>
+      <div class="step"><b>03 · Release</b><h3>Deliver on demand, diesel-free</h3>
+        <p>Stored cold flows precisely, from −25°C deep-freeze to ambient AC — monitored end-to-end.</p></div>
+    </div>
+    <p style="color:#c9d0ee;font-size:16px;max-width:60ch;margin-top:28px">
+      The result: cold-chain reliability without the cost, complexity or carbon of diesel gensets or lithium batteries.
+    </p>
+  </div>
+</section>
+
+<!-- ================= REEFER TRUCK — DETAIL (shown only when user clicks the Reefer truck card) ================= -->
+<section id="reefer-detail" class="row reefer-detail">
+  <div class="section-head">
+    <span class="eyebrow"><span class="dot"></span>Reefer trucks · Field-measured</span>
+    <h2>Every reefer unit deployed saves ₹3.6L and 4,000 L of diesel — every year.</h2>
+    <p>We didn't prototype ThermoPod in a lab and hope. Over ten years, we built it, patented it, and
+      measured every figure below in the field — real deployments, real numbers.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why"><div class="ic">❄</div><b>50% less diesel</b><p>Per refrigerated pickup truck, per year — no more idling a generator at every stop.</p></div>
+    <div class="why"><div class="ic">⛽</div><b>4,000 L saved</b><p>Diesel eliminated annually per vehicle. Multiply by a fleet and the math writes itself.</p></div>
+    <div class="why"><div class="ic">₹</div><b>₹3.6L saved</b><p>Cash savings per vehicle per year. Payback in under 9 months on reefer trucks.</p></div>
+    <div class="why"><div class="ic">◯</div><b>1/5th the CO₂</b><p>Versus the same cooling stored in lithium batteries. One-tenth the capital cost.</p></div>
+  </div>
+  <div class="badges" style="margin-top:32px;justify-content:flex-start">
+    <span class="badge">Patent · <b>In force</b></span>
+    <span class="badge">Made in <b>India</b></span>
+    <span class="badge"><b>$20-$50</b>/kWh storage cost</span>
+  </div>
+  <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn primary" href="#contact">Request a reefer pilot</a>
+    <a class="btn ghost" href="#applications">← Back to applications</a>
+  </div>
+</section>
+
+<!-- ================= CTA / CONTACT ================= -->
+<section id="contact" class="row">
+  <div class="cta-band">
+    <div>
+      <span class="eyebrow" style="color:#ffd2b8;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)"><span class="dot"></span>Start a pilot</span>
+      <h2>Let's store some cold together.</h2>
+      <p>Tell us your application, volumes and cooling load. We'll propose a ThermoPod deployment you can
+        pilot in weeks, not quarters.</p>
+      <div style="margin-top:22px;display:flex;flex-direction:column;gap:10px;font-size:15px;color:#e9ecff">
+        <div><a href="mailto:sales@freezigo.in" style="color:#fff;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.3)">sales@freezigo.in</a></div>
+        <div><a href="https://www.linkedin.com/company/freezigo/" target="_blank" rel="noopener" style="color:#fff;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.3);display:inline-flex;align-items:center;gap:8px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          FreeziGo on LinkedIn
+        </a></div>
+      </div>
+    </div>
+    <form class="cta-form" id="demoForm" onsubmit="return submitDemoForm(event)">
+      <div id="demoFormStatus" style="display:none;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.45"></div>
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="text" name="company" placeholder="Company name" required />
+      <input type="email" name="email" placeholder="Work email" required />
+      <input type="tel" name="phone" placeholder="Contact number" required pattern="[0-9+\-\s()]{7,}" />
+      <select name="application">
+        <option>Application — Reefer trucks</option>
+        <option>Bulk milk coolers (BMC)</option>
+        <option>Cold rooms</option>
+        <option>Data centres</option>
+        <option>Fishing boats</option>
+        <option>Central AC</option>
+        <option>Home AC</option>
+        <option>Vaccine &amp; pharma cold chain</option>
+        <option>Other</option>
+      </select>
+      <textarea name="message" rows="3" placeholder="Cooling load, deployment location, timeline"></textarea>
+      <!-- Formsubmit configuration (hidden) -->
+      <input type="hidden" name="_subject" value="New ThermoPod demo request from FreeziGo website"/>
+      <input type="hidden" name="_template" value="table"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off"/>
+      <button type="submit" id="demoSubmitBtn">Request a demo →</button>
+    </form>
+    <script>
+      function showDemoStatus(kind, msg){
+        var s = document.getElementById('demoFormStatus');
+        s.style.display = 'block';
+        s.textContent = msg;
+        if(kind === 'success'){ s.style.background = 'rgba(86,201,150,.15)'; s.style.color = '#a8f0c2'; s.style.border = '1px solid rgba(86,201,150,.35)'; }
+        else if(kind === 'error'){ s.style.background = 'rgba(255,120,90,.12)'; s.style.color = '#ffb4a3'; s.style.border = '1px solid rgba(255,120,90,.35)'; }
+        else { s.style.background = 'rgba(255,255,255,.06)'; s.style.color = '#cdd3f2'; s.style.border = '1px solid rgba(255,255,255,.16)'; }
+      }
+      function submitDemoForm(e){
+        e.preventDefault();
+        var f = e.target;
+        var btn = document.getElementById('demoSubmitBtn');
+        // Honeypot — silently drop bot submissions
+        if(f._honey && f._honey.value){ return false; }
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        showDemoStatus('info', 'Sending your request…');
+        var summary = (f.name.value||'').trim() + ' from ' + (f.company.value||'').trim() +
+          ' (contact: ' + (f.phone.value||'').trim() + ', ' + (f.email.value||'').trim() + ')' +
+          ' is trying to connect with you for a ThermoPod demo.';
+        var data = new FormData(f);
+        data.set('Summary', summary);
+        fetch('https://formsubmit.co/ajax/sales@freezigo.in', {
+          method:'POST', headers:{'Accept':'application/json'}, body:data
+        }).then(function(r){ return r.json(); }).then(function(j){
+          if(j && (j.success === 'true' || j.success === true)){
+            f.reset();
+            btn.disabled = false;
+            btn.textContent = 'Request a demo →';
+            showDemoStatus('success', '✓ Thanks! Your request has been sent to the FreeziGo team. We will reach out shortly. Submit another request anytime.');
+            // Scroll the success message into view at the top of the form
+            document.getElementById('demoFormStatus').scrollIntoView({behavior:'smooth', block:'center'});
+          } else {
+            throw new Error(j && j.message ? j.message : 'Unknown error');
+          }
+        }).catch(function(err){
+          btn.disabled = false;
+          btn.textContent = 'Request a demo →';
+          var isLocalFile = (window.location.protocol === 'file:');
+          if(isLocalFile){
+            showDemoStatus('info', 'Local-testing note: form-to-email services block submissions from file:// URLs for security. The form will work normally once this page is live on a website. To test now, host the folder on free Netlify Drop (https://app.netlify.com/drop).');
+          } else {
+            showDemoStatus('error', 'Sorry, we couldn\u2019t send your request right now. Please email sales@freezigo.in directly, or try again in a moment.');
+          }
+        });
+        return false;
+      }
+    </script>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="row">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="freezigo-logo.png" alt="FreeziGo" class="brand-logo"
+          onerror="this.outerHTML='&lt;svg class=&quot;brand-logo&quot; viewBox=&quot;0 0 360 96&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;2&quot; width=&quot;356&quot; height=&quot;92&quot; rx=&quot;18&quot; fill=&quot;#EB5B2C&quot; stroke=&quot;#0b0b0b&quot; stroke-width=&quot;3&quot;/&gt;&lt;text x=&quot;22&quot; y=&quot;66&quot; font-family=&quot;Impact, Arial Black, sans-serif&quot; font-size=&quot;58&quot; font-style=&quot;italic&quot; fill=&quot;#ffffff&quot;&gt;Freezi&lt;/text&gt;&lt;rect x=&quot;232&quot; y=&quot;18&quot; width=&quot;118&quot; height=&quot;60&quot; rx=&quot;12&quot; fill=&quot;#ffffff&quot; stroke=&quot;#0b0b0b&quot; stroke-width=&quot;2.5&quot;/&gt;&lt;text x=&quot;248&quot; y=&quot;64&quot; font-family=&quot;Impact, Arial Black, sans-serif&quot; font-size=&quot;48&quot; font-style=&quot;italic&quot; fill=&quot;#1F2A78&quot;&gt;GO&lt;/text&gt;&lt;/svg&gt;';"/>
+        <p>The Thermal Battery Company. Patented thermal-battery cooling — made in India, built for the world.</p>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <a href="https://www.linkedin.com/company/freezigo/" target="_blank" rel="noopener" aria-label="FreeziGo on LinkedIn"
+             style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--ink);color:#fff;transition:background .2s ease"
+             onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--ink)'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#product">ThermoPod</a>
+        <a href="#technology">How it works</a>
+        <a href="#applications">Applications</a>
+      </div>
+      <div class="foot-col">
+        <h4>Applications</h4>
+        <a href="#applications">Reefer trucks</a>
+        <a href="#applications">Bulk milk coolers</a>
+        <a href="#applications">Cold rooms</a>
+        <a href="#applications">Data centres</a>
+        <a href="#applications">Fishing boats</a>
+        <a href="#applications">Central AC</a>
+        <a href="#applications">Home AC</a>
+        <a href="#applications">Vaccine &amp; pharma</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="mailto:sales@freezigo.in">sales@freezigo.in</a>
+        <a href="https://www.linkedin.com/company/freezigo/" target="_blank" rel="noopener">FreeziGo on LinkedIn</a>
+        <a href="#contact">Request a demo</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© FreeziGo · Patented thermal battery technology</span>
+      <span>Made in India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Toggle "reefer-mode" subpage view based on URL hash
+  function syncReeferMode(){
+    var on = window.location.hash === '#reefer-detail';
+    document.body.classList.toggle('reefer-mode', on);
+    if(on){ window.scrollTo(0,0); }
+  }
+  window.addEventListener('hashchange', syncReeferMode);
+  syncReeferMode();
+</script>
+
+</body>
+</html>
